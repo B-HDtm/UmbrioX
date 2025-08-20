@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TBS - UmbrioX</title>
   <link rel="icon" type="image/png" href="/ico.png"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       margin: 0;
@@ -12,6 +13,7 @@
       background-color: black;
       color: white;
       padding: 1.5rem;
+      padding-top: 60px;
       overflow-x: hidden;
       position: relative;
     }
@@ -25,18 +27,23 @@
       pointer-events: none;
     }
     h1 {
-      text-align: center;
-      font-size: 3.5rem;
-      background-image: linear-gradient(90deg, #ff4500, #ffa500, #ff4500, #ff0000);
-      background-size: 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fire-shimmer 1.5s infinite linear;
-    }
-    @keyframes fire-shimmer {
-      0% { background-position: 0%; }
-      100% { background-position: 300%; }
-    }
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: bold;
+  background: linear-gradient(270deg, #ff4500, #ffa500, #ff4500, #ff0000, #ff4500);
+  background-size: 800% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: wave-gradient 6s linear infinite;
+  top: -2px;
+}
+
+@keyframes wave-gradient {
+  0% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
     .card {
       background-color: #1f2937;
       border-radius: 1rem;
@@ -92,34 +99,111 @@
       font-size: 1.2rem;
       text-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
     }
-    .marquee-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 10;
-      height: 40px;
-      display: flex;
-      align-items: center;
-    }
-    .marquee {
-      display: inline-block;
-      white-space: nowrap;
-      font-size: 1.5rem;
-      font-weight: bold;
-      background-image: linear-gradient(90deg, #7e22ce, #4f46e5, #0ea5e9, #38bdf8, #7e22ce);
-      background-size: 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: galaxy-shimmer 4s infinite linear, marquee 15s linear infinite;
-      padding-right: 100%;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+
+.marquee-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-image: linear-gradient(90deg, #7e22ce, #4f46e5, #0ea5e9, #38bdf8, #7e22ce);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: galaxy-shimmer 4s infinite linear, marquee 15s linear infinite;
+  padding-right: 100%;
+}
+
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes galaxy-shimmer {
+  0% { background-position: 0%; }
+  100% { background-position: 300%; }
+}
+
+
+.copy-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: white;
+  user-select: none;
+  transition: all 0.2s ease;
+  padding: 4px 6px;
+}
+
+.copy-btn:hover {
+  color: #4ade80;
+}
+
+.copy-notification {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4ade80;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.copy-notification::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #4ade80 transparent transparent transparent;
+}
+
+.copy-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+    .about p {
+  margin: 0 0 1rem 0;
+}
+
+.about p.spacer {
+  margin: 2rem 0;
+  height: 0;
+}
   </style>
 </head>
 <body>
@@ -132,15 +216,28 @@
   <h1>Token Burn System</h1>
 
   <div class="card">
-    <p>Burn Address: <span class="wallet-address">UQD7BXjUuq70_Q6-oZARwqxJ0b8GikkTyia8jT2-upQTKfvh</span></p>
+    <div class="burn-address-block" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+  <span>Burn Address:</span>
+  <span class="wallet-address" id="burnAddress">UQD7BXjUuq70_Q6-oZARwqxJ0b8GikkTyia8jT2-upQTKfvh</span>
+
+  <div class="copy-wrapper" style="position: relative; display: inline-block;">
+    <button class="copy-btn" id="copyBtn" title="Copy Address">📋</button>
+    <div id="copyNotification" class="copy-notification">Copied!</div>
+  </div>
+</div>
+
     <p class="burned-ton">Burned TON: <span class="burned-ton-value" id="burnedTon">0</span> TON</p>
     <p class="price-change">Change price: <span class="price-change-value red" id="priceChange">0%</span></p>
+  </div>
+
+  <div class="chart-container" style="max-width: 800px; margin: 2rem auto; background:#1f2937; padding:1rem; border-radius:1rem;">
+    <canvas id="burnChart"></canvas>
   </div>
 
   <div class="about">
     <p>UmbrioX (UBX, ᪣) The Token Burn System allows users to send TON to a wallet to burn, increasing the value of UBX.</p>
     <p>By destroying TON tokens, you increase the value of UBX by 0.5% and this is valid for >=1.0% (That is, 2 payments of 1 TON or 1 for 2 TON in these 24 hours) and these percentages are valid only for 24 hours, if there is an increase in the price of 55.5% (For example), then after 24 hours it will already be 0.0%</p>
-    <p>.</p>
+    <p class="spacer"></p>
     <p>Attention! We do not force you to destroy your coins in favor of UBX. If you have already sent tokens, know that you are always responsible for them (information about this is always available before creating crypto wallets on any platform) Also, the minimum transaction amount to the burn address is 0.5 TON, if you send less, the transaction will go through but will not be counted by the system and also, if you send fake transactions, anything other than (finalized) will be rejected</p>
   </div>
 
@@ -317,6 +414,119 @@ setInterval(() => {
   fetchBurnedTON();
 }, 86400000);
   </script>
+<script>
+// --- Chart.js --- | --- SBT-TBS ---
+const ctx = document.getElementById('burnChart').getContext('2d');
+let burnChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Burned TON (7 days)',
+      data: [],
+      borderWidth: 2,
+      borderColor: '#ff4500',
+      backgroundColor: 'rgba(255,69,0,0.3)',
+      tension: 0.3,
+      fill: true,
+      pointRadius: 5,
+      pointHoverRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: 'white' } }
+    },
+    scales: {
+      x: { ticks: { color: 'white' } },
+      y: { ticks: { color: 'white' }, beginAtZero: true }
+    }
+  }
+});
+
+let weekLabels = [];
+let weekData = [];
+
+async function fetchDailyData() {
+  try {
+    const response = await fetch(`https://tonapi.io/v2/blockchain/accounts/${BURN_ADDRESS}/transactions?limit=1000`);
+    if (!response.ok) throw new Error("Fetch failed");
+    const data = await response.json();
+
+    const now = Math.floor(Date.now() / 1000);
+    const todayDate = new Date(now * 1000).toISOString().slice(0,10);
+
+    let todayValue = 0;
+
+    if (Array.isArray(data.transactions)) {
+      data.transactions.forEach(tx => {
+        const isFinal = tx.status === "finalized";
+        const isIncoming = tx.in_msg && tx.in_msg.value;
+        const toCorrectAddress = tx.in_msg?.destination === BURN_ADDRESS;
+        const valueEnough = tx.in_msg.value >= MIN_VALUE;
+
+        if (isFinal && isIncoming && toCorrectAddress && valueEnough) {
+          const tonValue = tx.in_msg.value / 1e9;
+          const txDate = new Date(tx.utime * 1000).toISOString().slice(0,10);
+
+          if (txDate === todayDate) {
+            todayValue += tonValue;
+          }
+        }
+      });
+    }
+
+    const lastLabel = weekLabels[weekLabels.length - 1];
+
+    if (lastLabel === todayDate) {
+      weekData[weekData.length - 1] = Math.max(weekData[weekData.length - 1], todayValue);
+    } else {
+      if (weekLabels.length >= 7) {
+        weekLabels = [];
+        weekData = [];
+      }
+      weekLabels.push(todayDate);
+      weekData.push(todayValue);
+    }
+
+    burnChart.data.labels = weekLabels;
+    burnChart.data.datasets[0].data = weekData;
+    burnChart.update();
+
+  } catch (err) {
+    console.error("Graph fetch error:", err);
+  }
+}
+
+fetchDailyData();
+setInterval(fetchDailyData, 60000);
+</script>
+<script>
+const copyBtn = document.getElementById("copyBtn");
+const copyNotification = document.getElementById("copyNotification");
+
+let hideTimeout;
+
+copyBtn.addEventListener("click", () => {
+  const addr = document.getElementById("burnAddress").textContent;
+  navigator.clipboard.writeText(addr).then(() => {
+    clearTimeout(hideTimeout);
+
+    copyNotification.classList.add("show");
+
+    hideTimeout = setTimeout(() => {
+      copyNotification.classList.remove("show");
+    }, 2000);
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target === copyBtn) return;
+
+  clearTimeout(hideTimeout);
+  copyNotification.classList.remove("show");
+});
+</script>
 </body>
 </html>
-
