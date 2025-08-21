@@ -26,7 +26,7 @@
       pointer-events: none;
     }
     .galaxy-title {
-      cursor: pointer;
+      cursor: default;
       transition: all 0.5s ease;
       background-image: linear-gradient(90deg, #7e22ce, #4f46e5, #0ea5e9, #38bdf8, #7e22ce);
       background-size: 300%;
@@ -78,33 +78,35 @@
       100% { opacity: 0; }
     }
     .thank-you {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.5rem;
-      text-align: center;
-      opacity: 0;
-      z-index: 2;
-      animation: showThankYou 7s linear 24s forwards, fadeOutThankYou 2s linear 31s forwards;
-    }
-    @keyframes showThankYou {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeOutThankYou {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-  </style>
-  <style>
-  /* M.V */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  text-align: center;
+  opacity: 0;
+  z-index: 2;
+  animation: showAndHideThankYou 9s linear 24s forwards;
+}
+
+@keyframes showAndHideThankYou {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
   @keyframes scrollCreditsMobile {
     0% { transform: translateY(100vh); }
-    100% { transform: translateY(-120%); } /* полностью уходит за экран */
+    100% { transform: translateY(-120%); }
   }
+.glow-text {
+  background-image: linear-gradient(90deg, #7e22ce, #4f46e5, #0ea5e9, #38bdf8, #7e22ce);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: galaxy-shimmer 4s infinite linear;
+}
 </style>
 </head>
 <body>
@@ -112,7 +114,7 @@
   <div class="credits-container">
     <div class="credits">
       <h2 class="galaxy-title">UmbrioX (᪣UBX)</h2>
-      <p>Created by B*HD™</p>
+      <p>Created by B-HD™</p>
       <p>Coder: Goncharov Nikita, Tkachenko Sergey</p>
       <p>Design by Somik Misha, Kiselev Trofim, Yudin Leon</p>
       <p>Developer: Vinogradov Philip, Chervony Leon</p>
@@ -124,6 +126,9 @@
       <p>Partners: TON Network, Blum, DeDust, tonapi.io, API.Service, Workers, TBS.Service</p>
       <p>Inspiration: ETH</p>
       <p>Idea: FPI Bank</p>
+      <p id="daily-meme">
+      Daily Meme: <span class="glow-text">loading...</span>
+      </p>
     </div>
   </div>
   <div class="thank-you galaxy-title">
@@ -250,7 +255,7 @@
 
     setTimeout(() => {
       window.location.href = 'https://umbriox.pp.ua/';
-    }, 35000);
+    }, 34000);
   </script>
   <script>
   // M.V
@@ -261,6 +266,42 @@
     document.querySelector('.credits').style.animation =
       'scrollCreditsMobile 25s linear 1s forwards, fadeOutCredits 3s linear 26s forwards';
   }
+</script>
+<script>
+async function loadDailyMeme() {
+  const memeElement = document.getElementById("daily-meme");
+  const today = new Date().toISOString().split("T")[0];
+  const savedMeme = JSON.parse(localStorage.getItem("dailyMeme"));
+
+  if (savedMeme && savedMeme.date === today) {
+    memeElement.innerHTML = 'Daily Meme: <span class="glow-text">' + savedMeme.text + '</span>';
+    return;
+  }
+
+  try {
+    let shortMeme = null;
+
+    for (let i = 0; i < 10; i++) {
+      const res = await fetch("https://meme-api.com/gimme");
+      const data = await res.json();
+      if (data.title.length <= 15) {
+        shortMeme = data.title;
+        break;
+      }
+    }
+
+    if (!shortMeme) shortMeme = "¯\\_(ツ)_/¯";
+
+    localStorage.setItem("dailyMeme", JSON.stringify({ date: today, text: shortMeme }));
+
+    memeElement.innerHTML = 'Daily Meme: <span class="glow-text">' + shortMeme + '</span>';
+
+  } catch (e) {
+    memeElement.innerHTML = 'Daily Meme: <span class="glow-text">No memes today</span>';
+  }
+}
+
+loadDailyMeme();
 </script>
 </body>
 </html>
