@@ -259,63 +259,64 @@
   .galaxy-subtitle { font-size: 0.85rem; }
   #galaxy { max-width: 300px; }
 }
-  .coin {
-    font-size: 200px;
-    width: 0.1em;
-    height: 1em;
-    background: linear-gradient(#8e44ad, #5e3370); 
-    margin: auto;
-    animation: rotate_4001510 7s infinite linear;
-    transform-style: preserve-3d;
-    position: relative;
+.coin {
+  font-size: 200px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(#8e44ad, #5e3370); 
+  margin: auto;
+  animation: rotate_4001510 7s infinite linear;
+  transform-style: preserve-3d;
+  position: relative;
+  transform: rotateX(20deg);
+  filter: drop-shadow(0 0 25px #9b59b6) drop-shadow(0 0 50px #8e44ad);
+}
 
+.coin .side,
+.coin:before,
+.coin:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 50%;
+  right: -0.4em;
+  text-align: center;
+  line-height: 1;
+  transform: rotateY(-90deg);
+  backface-visibility: hidden;
+}
+
+.coin .tails,
+.coin:after {
+  left: -0.4em;
+  transform: rotateY(90deg);
+}
+
+.coin:before,
+.coin:after {
+  background: linear-gradient(#8e44ad, #5e3370);
+  backface-visibility: hidden;
+  transform: rotateY(90deg);
+}
+
+.coin:after {
+  transform: rotateY(-90deg);
+}
+
+@keyframes rotate_4001510 {
+  0% {
     transform: rotateX(20deg) rotateY(0deg);
-
-    filter: drop-shadow(0 0 25px #9b59b6) drop-shadow(0 0 50px #8e44ad);
   }
-
-  .coin .side,
-  .coin:before,
-  .coin:after {
-    content: "";
-    position: absolute;
-    width: 1em;
-    height: 1em;
-    overflow: hidden;
-    border-radius: 50%;
-    right: -0.4em;
-    text-align: center;
-    line-height: 1;
-    transform: rotateY(-90deg);
-    backface-visibility: hidden;
+  100% {
+    transform: rotateX(20deg) rotateY(360deg);
   }
+}
 
-  .coin .tails,
-  .coin:after {
-    left: -0.4em;
-    transform: rotateY(90deg);
-  }
-
-  .coin:before,
-  .coin:after {
-    background: linear-gradient(#8e44ad, #5e3370);
-    backface-visibility: hidden;
-    transform: rotateY(90deg);
-  }
-
-  .coin:after {
-    transform: rotateY(-90deg);
-  }
-
-  @keyframes rotate_4001510 {
-    100% {
-      transform: rotateX(20deg) rotateY(360deg);
-    }
-  }
-
-  .svg_back {
-    transform: scaleX(-1);
-  }
+.svg_back {
+  transform: scaleX(-1);
+}
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
   <meta name="description" content="UmbrioX (᪣UBX) - innovative cryptocurrency on TON. Invest in the future with fast transactions and high security. Find out the price of UBX and join!" />
