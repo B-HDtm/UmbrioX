@@ -259,16 +259,35 @@
   .galaxy-subtitle { font-size: 0.85rem; }
   #galaxy { max-width: 300px; }
 }
-  .coin {
-    font-size: 200px;
-    width: 0.1em;
-    height: 1em;
-    background: linear-gradient(#8e44ad, #5e3370);
-    margin: auto;
-    animation: rotate_4001510 7s infinite linear;
-    transform-style: preserve-3d;
-    position: relative;
+.coin {
+  font-size: 200px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(#8e44ad, #5e3370);
+  margin: auto;
+  animation: rotate_4001510 7s infinite linear, shine 2s infinite linear;
+  transform-style: preserve-3d;
+  position: relative;
+  transform: rotateZ(15deg);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes rotate_4001510 {
+  0% { transform: rotateZ(15deg) rotateY(0deg); }
+  100% { transform: rotateZ(15deg) rotateY(360deg); }
+}
+
+@keyframes shine {
+  0% {
+    background: linear-gradient(145deg, #a55eea, #5e3370, #8e44ad);
   }
+  50% {
+    background: linear-gradient(145deg, #fff, #5e3370, #8e44ad);
+  }
+  100% {
+    background: linear-gradient(145deg, #a55eea, #5e3370, #8e44ad);
+  }
+}
 
   .coin .side,
   .coin:before,
@@ -353,7 +372,7 @@
   <div class="side tails">
     <svg xmlns="http://www.w3.org/2000/svg" class="svg_back" width="100%" height="100%" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="100" fill="#5e3370"/>
-      <text x="50%" y="55%" font-size="60" text-anchor="middle" fill="white" font-family="Arial" dy=".3em">Coin</text>
+      <text x="50%" y="55%" font-size="60" text-anchor="middle" fill="white" font-family="Arial" dy=".3em">UBX</text>
     </svg>
   </div>
       </div>
