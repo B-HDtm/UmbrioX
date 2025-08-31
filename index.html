@@ -259,6 +259,59 @@
   .galaxy-subtitle { font-size: 0.85rem; }
   #galaxy { max-width: 300px; }
 }
+  .coin {
+    font-size: 200px;
+    width: 0.1em;
+    height: 1em;
+    background: linear-gradient(#8e44ad, #5e3370); /* фиолетовый градиент */
+    margin: auto;
+    animation: rotate_4001510 7s infinite linear;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .coin .side,
+  .coin:before,
+  .coin:after {
+    content: "";
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    border-radius: 50%;
+    right: -0.4em;
+    text-align: center;
+    line-height: 1;
+    transform: rotateY(-90deg);
+    backface-visibility: hidden;
+  }
+
+  .coin .tails,
+  .coin:after {
+    left: -0.4em;
+    transform: rotateY(90deg);
+  }
+
+  .coin:before,
+  .coin:after {
+    background: linear-gradient(#8e44ad, #5e3370);
+    backface-visibility: hidden;
+    transform: rotateY(90deg);
+  }
+
+  .coin:after {
+    transform: rotateY(-90deg);
+  }
+
+  @keyframes rotate_4001510 {
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .svg_back {
+    transform: scaleX(-1);
+  }
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
   <meta name="description" content="UmbrioX (᪣UBX) - innovative cryptocurrency on TON. Invest in the future with fast transactions and high security. Find out the price of UBX and join!" />
@@ -290,6 +343,20 @@
         <span class="rocket" id="rocket">🚀</span>
         <span class="galaxy-title">UmbrioX (᪣UBX)</span>
       </span>
+      div class="coin">
+  <div class="side heads">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="100" fill="#8e44ad"/>
+      <text x="50%" y="55%" font-size="60" text-anchor="middle" fill="white" font-family="Arial" dy=".3em">UBX</text>
+    </svg>
+  </div>
+  <div class="side tails">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg_back" width="100%" height="100%" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="100" fill="#5e3370"/>
+      <text x="50%" y="55%" font-size="60" text-anchor="middle" fill="white" font-family="Arial" dy=".3em">UBX</text>
+    </svg>
+  </div>
+  </div>
     </h1>
     <div style="text-align: center;">
       <a href="https://blum.codes/token/umbriox" class="button" target="_blank">🔭 Watch on Minter (TON)</a>
