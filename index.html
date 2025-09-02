@@ -671,6 +671,38 @@
   left: auto;
   transform: none;
 }
+.loader {
+  width: 100px;
+  aspect-ratio: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  display: grid;
+  background: #fff;
+  filter: blur(5px) contrast(10);
+  mix-blend-mode: darken;
+}
+.loader:before,
+.loader:after{
+  content: "";
+  grid-area: 1/1;
+  background:
+    linear-gradient(#000 0 0) left,
+    linear-gradient(#000 0 0) right;
+  background-size: 20px 40px;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+}
+.loader:after {
+  height: 20px;
+  width:  20px;
+  margin: auto 0;
+  border-radius: 50%;
+  background: #000;
+  animation: l10 1s infinite;
+}
+@keyframes l10{
+  90%,100% {transform: translate(300%)}
+}
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
   <meta name="description" content="UmbrioX (᪣UBX) - innovative cryptocurrency on TON. Invest in the future with fast transactions and high security. Find out the price of UBX and join!" />
@@ -756,6 +788,7 @@
 </div>
   <div class="about-terminal">
   <h2>API UmbrioX</h2>
+  <div class="loader"></div>
   <p><span class="prompt">➜</span> Want to use <span class="highlight">UmbrioX</span> cryptocurrency API prices etc.?</p>
   <p><span class="prompt">➜</span> Get price, percentage change, previous price, etc. No hassle at <a href="https://api.umbriox.pp.ua">API.UBX</a></p>
   <p><span class="prompt">➜</span> Use the API to your taste or even create some custom app to track prices.</p>
