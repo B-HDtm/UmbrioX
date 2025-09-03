@@ -1,3 +1,7 @@
+<!-- Version 576.950 -->
+<!-- Info for Google -->
+<!-- Created by B-HD™ -->
+<!-- (! Do not copy all code!) -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -676,6 +680,15 @@
   z-index: 1;
 }
 
+.about-cosmic p {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.about-cosmic:hover p {
+  color: #f0f9ff;
+  text-shadow: 0 0 4px #38bdf8;
+}
+
 .about-cosmic a {
   color: #38bdf8;
   font-weight: 600;
@@ -687,7 +700,12 @@
 
 .about-cosmic a:hover {
   color: #f472b6;
-  text-shadow: 0 0 12px #f472b6, 0 0 22px #38bdf8;
+  text-shadow: 0 0 12px #f472b6, 0 0 22px #38bdf8, 0 0 30px #a78bfa;
+}
+
+.about-cosmic:hover::before {
+  animation-duration: 15s;
+  transform: rotate(15deg);
 }
 
 .highlight {
@@ -702,10 +720,9 @@
 }
 
 .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.22);
+  position: relative;
+  margin: 1rem auto 0;
+  transform: scale(0.22);
   --from: 200px;
   --to: 40px;
   --size: 32px;
@@ -803,12 +820,11 @@
     <div id="glow">  
     <div class="circle"></div>  
     <div class="circle"></div>  
-  </div
+  </div>
     <div id="glow">
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
-  </a>
 </div>
     <p style="text-align: center; font-size: 1.25rem; color: #d1d5db;">
       Welcome to UmbrioX - the cryptocurrency created by B-HD™ 🚀
