@@ -312,69 +312,6 @@
   .svg_back {  
     transform: scaleX(-1);  
   } 
-  .about-terminal {
-  background: #1e1e2f;
-  color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  max-width: 700px;
-  margin: 2rem auto;
-  font-family: 'Courier New', Courier, monospace;
-  line-height: 1.6;
-  border-left: 5px solid #d8b4fe;
-  position: relative;
-}
-
-.about-terminal h2 {
-  color: #d8b4fe;
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(90deg, #7e22ce, #0ea5e9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.about-terminal a {
-  color: #d8b4fe;
-  text-decoration: underline;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.about-terminal a:hover {
-  color: #7e22ce;
-  text-shadow: 0 0 8px rgba(126,34,206,0.7);
-}
-
-.prompt {
-  color: #0ea5e9;
-  font-weight: bold;
-  margin-right: 0.5rem;
-}
-
-.about-terminal p {
-  position: relative;
-}
-
-.about-terminal p::after {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 1em;
-  background-color: #0ea5e9;
-  margin-left: 4px;
-  animation: blink 1s steps(1) infinite;
-}
-
-.highlight {
-  color: #38bdf8;
-  font-weight: bold;
-}
-
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
 .wheel-and-hamster {
   --dur: 1s;
   position: relative;
@@ -688,6 +625,7 @@
   position: relative;
   overflow: hidden;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1;
 }
 
 .about-cosmic:hover {
@@ -711,9 +649,9 @@
     rgba(236, 72, 153, 0.6),
     rgba(126, 34, 206, 0.6)
   );
-  animation: rotate 18s linear infinite;
+  animation: rotate 30s linear infinite;
   z-index: 0;
-  filter: blur(100px);
+  filter: blur(80px);
 }
 
 .about-cosmic h2 {
@@ -726,6 +664,7 @@
   letter-spacing: 1px;
   position: relative;
   z-index: 1;
+  background-size: 200%;
 }
 
 .about-cosmic p {
@@ -762,13 +701,11 @@
   100% { transform: rotate(360deg);}
 }
 
-/* rainbow loader */
 .loader {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: scale(0.22) translate(-50%, -50%);
-
+  transform: translate(-50%, -50%) scale(0.22);
   --from: 200px;
   --to: 40px;
   --size: 32px;
@@ -779,8 +716,8 @@
 
 .circle {
   position: absolute;
-  --delay: calc(var(--time) / var(--count) * -1 * var(--i));
-  rotate: calc(var(--turns) * 1turn / var(--count) * var(--i));
+  --delay: calc(var(--time) / var(--count) * -1 * var(--i, 0));
+  rotate: calc(var(--turns) * 1turn / var(--count) * var(--i, 0));
   animation: circle var(--time) var(--delay) ease-in-out infinite;
 }
 
@@ -797,25 +734,18 @@
 
 .rainbow .circle::before {
   background-color: hsl(
-    calc(1turn / (var(--count) / var(--turns)) * var(--i)) 100% 70%
+    calc(1turn / (var(--count) / var(--turns)) * var(--i, 0)) 100% 70%
   );
 }
 
 @keyframes circle {
-  from {
-    transform: translate(0, var(--from));
-  }
-  to {
-    transform: translate(0, var(--to));
-  }
+  from { transform: translate(0, var(--from)); }
+  to { transform: translate(0, var(--to)); }
 }
+
 @keyframes circleSize {
-  0%, 100% {
-    transform: scale(0);
-  }
-  25%, 50% {
-    transform: scale(1);
-  }
+  0%, 100% { transform: scale(0); }
+  25%, 50% { transform: scale(1); }
 }
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
