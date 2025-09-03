@@ -1,4 +1,4 @@
-<!-- Version 576.951 -->
+<!-- Version 576.952 -->
 <!-- Info for Google -->
 <!-- Created by B-HD™ -->
 <!-- (! Do not copy all code!) -->
@@ -729,11 +729,12 @@
   display: flex;
   align-items: center;
   height: 2.2rem;
+  width: 2.2rem;
   margin: 0;
   transform: none;
   --from: 200px;
   --to: 40px;
-  --size: 32px;
+  --size: 2px;
   --time: 6s;
   --count: 100;
   --turns: 6;
@@ -741,6 +742,9 @@
 
 .circle {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
   --delay: calc(var(--time) / var(--count) * -1 * var(--i, 0));
   rotate: calc(var(--turns) * 1turn / var(--count) * var(--i, 0));
   animation: circle var(--time) var(--delay) ease-in-out infinite;
@@ -765,7 +769,7 @@
 
 @keyframes circle {
   from { transform: translate(0, var(--from)); }
-  to { transform: translate(0, var(--to)); }
+  to   { transform: translate(0, var(--to)); }
 }
 
 @keyframes circleSize {
@@ -855,6 +859,7 @@
 </div>
 </div>
   <div class="about-cosmic">
+  <h2>🚀 API UmbrioX</h2>
   <div class="loader rainbow">
     <div class="circle" style="--i:1"></div>
     <div class="circle" style="--i:2"></div>
@@ -957,7 +962,7 @@
     <div class="circle" style="--i:99"></div>
     <div class="circle" style="--i:100"></div>
   </div>
-  <h2>🚀 API UmbrioX</h2>
+
   <p>Want to use <span class="highlight">UmbrioX</span> cryptocurrency API prices etc.?</p>
   <p>Get price, percentage change, previous price, etc. No hassle at 
     <a href="https://api.umbriox.pp.ua" target="_blank">API.UBX</a>
