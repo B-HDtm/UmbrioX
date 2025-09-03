@@ -1,4 +1,4 @@
-<!-- Version 576.952 -->
+<!-- Version 576.953 -->
 <!-- Info for Google -->
 <!-- Created by B-HD™ -->
 <!-- (! Do not copy all code!) -->
@@ -611,11 +611,9 @@
   left: auto;
   transform: none;
 }
+
 .about-cosmic {
   max-width: 750px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 4rem auto;
   padding: 3rem 2.5rem 2rem;
   border-radius: 24px;
@@ -663,8 +661,7 @@
 
 .about-cosmic h2 {
   font-size: 2.2rem;
-  flex: 1;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   background: linear-gradient(90deg, #7e22ce, #38bdf8, #f472b6, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -682,9 +679,6 @@
   color: rgba(240, 249, 255, 0.9);
   position: relative;
   z-index: 1;
-}
-
-.about-cosmic p {
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
@@ -721,60 +715,6 @@
 @keyframes rotate {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
-}
-
-.loader {
-  position: relative;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  height: 2.2rem;
-  width: 2.2rem;
-  margin: 0;
-  transform: none;
-  --from: 200px;
-  --to: 40px;
-  --size: 2px;
-  --time: 6s;
-  --count: 100;
-  --turns: 6;
-}
-
-.circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  --delay: calc(var(--time) / var(--count) * -1 * var(--i, 0));
-  rotate: calc(var(--turns) * 1turn / var(--count) * var(--i, 0));
-  animation: circle var(--time) var(--delay) ease-in-out infinite;
-}
-
-.circle::before {
-  content: "";
-  display: block;
-  width: var(--size);
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  background-color: white;
-  transform-origin: center center;
-  animation: circleSize var(--time) var(--delay) ease-in-out infinite;
-}
-
-.rainbow .circle::before {
-  background-color: hsl(
-    calc(1turn / (var(--count) / var(--turns)) * var(--i, 0)) 100% 70%
-  );
-}
-
-@keyframes circle {
-  from { transform: translate(0, var(--from)); }
-  to   { transform: translate(0, var(--to)); }
-}
-
-@keyframes circleSize {
-  0%, 100% { transform: scale(0); }
-  25%, 50% { transform: scale(1); }
 }
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
