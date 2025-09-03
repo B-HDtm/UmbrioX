@@ -670,42 +670,152 @@
   left: auto;
   transform: none;
 }
-.loader {
-  width: 100px;
-  height: 100px;
-  padding: 10px;
-  box-sizing: border-box;
-  display: grid;
-  background: linear-gradient(135deg, #8e2de2, #c471ed, #f64f59);
-  background-size: 200% 200%;
-  animation: gradientFlow 5s infinite alternate;
-  filter: blur(5px) contrast(10);
+.about-cosmic {
+  max-width: 750px;
+  margin: 4rem auto;
+  padding: 3rem 2.5rem 2rem;
+  border-radius: 24px;
+  background: rgba(20, 20, 40, 0.65);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(126, 34, 206, 0.4),
+              0 0 60px rgba(14, 165, 233, 0.3),
+              inset 0 0 20px rgba(255, 255, 255, 0.05);
+  font-family: 'Poppins', sans-serif;
+  color: #f0f9ff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.loader:before,
-.loader:after {
+.about-cosmic:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 35px rgba(126, 34, 206, 0.6),
+              0 0 70px rgba(14, 165, 233, 0.5);
+}
+
+.about-cosmic::before {
   content: "";
-  grid-area: 1/1;
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(126, 34, 206, 0.6),
+    rgba(14, 165, 233, 0.6),
+    rgba(56, 189, 248, 0.6),
+    rgba(236, 72, 153, 0.6),
+    rgba(126, 34, 206, 0.6)
+  );
+  animation: rotate 18s linear infinite;
+  z-index: 0;
+  filter: blur(100px);
 }
 
-.loader:after {
-  height: 20px;
-  width: 20px;
-  margin: auto;
+.about-cosmic h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #7e22ce, #38bdf8, #f472b6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-cosmic p {
+  font-size: 1.15rem;
+  margin: 0.8rem 0;
+  line-height: 1.6;
+  color: rgba(240, 249, 255, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+.about-cosmic a {
+  color: #38bdf8;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.about-cosmic a:hover {
+  color: #f472b6;
+  text-shadow: 0 0 12px #f472b6, 0 0 22px #38bdf8;
+}
+
+.highlight {
+  color: #a78bfa;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(167, 139, 250, 0.7);
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+/* rainbow loader */
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.22) translate(-50%, -50%);
+
+  --from: 200px;
+  --to: 40px;
+  --size: 32px;
+  --time: 6s;
+  --count: 100;
+  --turns: 6;
+}
+
+.circle {
+  position: absolute;
+  --delay: calc(var(--time) / var(--count) * -1 * var(--i));
+  rotate: calc(var(--turns) * 1turn / var(--count) * var(--i));
+  animation: circle var(--time) var(--delay) ease-in-out infinite;
+}
+
+.circle::before {
+  content: "";
+  display: block;
+  width: var(--size);
+  aspect-ratio: 1/1;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8e2de2, #c471ed, #f64f59);
-  background-size: 200% 200%;
-  animation: l10 1s infinite linear, gradientFlow 3s infinite alternate;
+  background-color: white;
+  transform-origin: center center;
+  animation: circleSize var(--time) var(--delay) ease-in-out infinite;
 }
 
-@keyframes l10 {
-  90%, 100% { transform: translateX(200%); }
+.rainbow .circle::before {
+  background-color: hsl(
+    calc(1turn / (var(--count) / var(--turns)) * var(--i)) 100% 70%
+  );
 }
 
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes circle {
+  from {
+    transform: translate(0, var(--from));
+  }
+  to {
+    transform: translate(0, var(--to));
+  }
+}
+@keyframes circleSize {
+  0%, 100% {
+    transform: scale(0);
+  }
+  25%, 50% {
+    transform: scale(1);
+  }
 }
   </style>
   <title>UmbrioX (᪣UBX) - New cryptocurrency of the future</title>
@@ -790,13 +900,116 @@
   <div id="galaxy"></div>
 </div>
 </div>
-  <div class="about-terminal">
-  <h2>API UmbrioX</h2>
-  <div class="loader"></div>
-  <p><span class="prompt">➜</span> Want to use <span class="highlight">UmbrioX</span> cryptocurrency API prices etc.?</p>
-  <p><span class="prompt">➜</span> Get price, percentage change, previous price, etc. No hassle at <a href="https://api.umbriox.pp.ua">API.UBX</a></p>
-  <p><span class="prompt">➜</span> Use the API to your taste or even create some custom app to track prices.</p>
+  <div class="about-cosmic">
+  <div class="loader rainbow">
+    <div class="circle" style="--i:1"></div>
+    <div class="circle" style="--i:2"></div>
+    <div class="circle" style="--i:3"></div>
+    <div class="circle" style="--i:4"></div>
+    <div class="circle" style="--i:5"></div>
+    <div class="circle" style="--i:6"></div>
+    <div class="circle" style="--i:7"></div>
+    <div class="circle" style="--i:8"></div>
+    <div class="circle" style="--i:9"></div>
+    <div class="circle" style="--i:10"></div>
+    <div class="circle" style="--i:11"></div>
+    <div class="circle" style="--i:12"></div>
+    <div class="circle" style="--i:13"></div>
+    <div class="circle" style="--i:14"></div>
+    <div class="circle" style="--i:15"></div>
+    <div class="circle" style="--i:16"></div>
+    <div class="circle" style="--i:17"></div>
+    <div class="circle" style="--i:18"></div>
+    <div class="circle" style="--i:19"></div>
+    <div class="circle" style="--i:20"></div>
+    <div class="circle" style="--i:21"></div>
+    <div class="circle" style="--i:22"></div>
+    <div class="circle" style="--i:23"></div>
+    <div class="circle" style="--i:24"></div>
+    <div class="circle" style="--i:25"></div>
+    <div class="circle" style="--i:26"></div>
+    <div class="circle" style="--i:27"></div>
+    <div class="circle" style="--i:28"></div>
+    <div class="circle" style="--i:29"></div>
+    <div class="circle" style="--i:30"></div>
+    <div class="circle" style="--i:31"></div>
+    <div class="circle" style="--i:32"></div>
+    <div class="circle" style="--i:33"></div>
+    <div class="circle" style="--i:34"></div>
+    <div class="circle" style="--i:35"></div>
+    <div class="circle" style="--i:36"></div>
+    <div class="circle" style="--i:37"></div>
+    <div class="circle" style="--i:38"></div>
+    <div class="circle" style="--i:39"></div>
+    <div class="circle" style="--i:40"></div>
+    <div class="circle" style="--i:41"></div>
+    <div class="circle" style="--i:42"></div>
+    <div class="circle" style="--i:43"></div>
+    <div class="circle" style="--i:44"></div>
+    <div class="circle" style="--i:45"></div>
+    <div class="circle" style="--i:46"></div>
+    <div class="circle" style="--i:47"></div>
+    <div class="circle" style="--i:48"></div>
+    <div class="circle" style="--i:49"></div>
+    <div class="circle" style="--i:50"></div>
+    <div class="circle" style="--i:51"></div>
+    <div class="circle" style="--i:52"></div>
+    <div class="circle" style="--i:53"></div>
+    <div class="circle" style="--i:54"></div>
+    <div class="circle" style="--i:55"></div>
+    <div class="circle" style="--i:56"></div>
+    <div class="circle" style="--i:57"></div>
+    <div class="circle" style="--i:58"></div>
+    <div class="circle" style="--i:59"></div>
+    <div class="circle" style="--i:60"></div>
+    <div class="circle" style="--i:61"></div>
+    <div class="circle" style="--i:62"></div>
+    <div class="circle" style="--i:63"></div>
+    <div class="circle" style="--i:64"></div>
+    <div class="circle" style="--i:65"></div>
+    <div class="circle" style="--i:66"></div>
+    <div class="circle" style="--i:67"></div>
+    <div class="circle" style="--i:68"></div>
+    <div class="circle" style="--i:69"></div>
+    <div class="circle" style="--i:70"></div>
+    <div class="circle" style="--i:71"></div>
+    <div class="circle" style="--i:72"></div>
+    <div class="circle" style="--i:73"></div>
+    <div class="circle" style="--i:74"></div>
+    <div class="circle" style="--i:75"></div>
+    <div class="circle" style="--i:76"></div>
+    <div class="circle" style="--i:77"></div>
+    <div class="circle" style="--i:78"></div>
+    <div class="circle" style="--i:79"></div>
+    <div class="circle" style="--i:80"></div>
+    <div class="circle" style="--i:81"></div>
+    <div class="circle" style="--i:82"></div>
+    <div class="circle" style="--i:83"></div>
+    <div class="circle" style="--i:84"></div>
+    <div class="circle" style="--i:85"></div>
+    <div class="circle" style="--i:86"></div>
+    <div class="circle" style="--i:87"></div>
+    <div class="circle" style="--i:88"></div>
+    <div class="circle" style="--i:89"></div>
+    <div class="circle" style="--i:90"></div>
+    <div class="circle" style="--i:91"></div>
+    <div class="circle" style="--i:92"></div>
+    <div class="circle" style="--i:93"></div>
+    <div class="circle" style="--i:94"></div>
+    <div class="circle" style="--i:95"></div>
+    <div class="circle" style="--i:96"></div>
+    <div class="circle" style="--i:97"></div>
+    <div class="circle" style="--i:98"></div>
+    <div class="circle" style="--i:99"></div>
+    <div class="circle" style="--i:100"></div>
   </div>
+  <h2>🚀 API UmbrioX</h2>
+  <p>Want to use <span class="highlight">UmbrioX</span> cryptocurrency API prices etc.?</p>
+  <p>Get price, percentage change, previous price, etc. No hassle at 
+    <a href="https://api.umbriox.pp.ua" target="_blank">API.UBX</a>
+  </p>
+  <p>Use the API to your taste or even create some custom app to track prices.</p>
+</div>
   <div class="about">
       <h2 style="color: #d8b4fe; font-size: 1.75rem;">About UmbrioX</h2>
       <p>UmbrioX is a cryptocurrency of a new era. It is created for those who are ready to go beyond the ordinary and explore the financial horizons of the future. The symbol ᪣ represents the mystery of this world.</p>
