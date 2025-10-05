@@ -284,7 +284,7 @@ async function loadDailyMeme() {
     for (let i = 0; i < 100; i++) {
       const res = await fetch("https://meme-api.com/gimme");
       const data = await res.json();
-      if (data.title.length <= 15) {
+      if (data.title.length <= 20) {
         shortMeme = data.title;
         break;
       }
